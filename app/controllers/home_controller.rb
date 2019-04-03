@@ -1,10 +1,10 @@
 class HomeController < ApplicationController
 
   def index
+    engine = Rails.application.credentials.search_engine
     from, to = home_params[:from], home_params[:to]
-    url = ''
     agent = Mechanize.new
-    page = agent.get("#{url}?eki1=#{from}&eki2=#{to}&S=検索")
+    page = agent.get("#{engine[:url]}?#{engine[:from]}=#{from}&#{engine[:to]}=#{to}&#{engine[:search]}=検索")
     @elements = page.search('.bk_result')
   end
 
