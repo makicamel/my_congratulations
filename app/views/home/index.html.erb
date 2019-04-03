@@ -1,1 +1,13 @@
-Here is Home#index.
+<%= form_with url: home_index_path, method: :get, local: true do |f| %>
+  <%= tag.p do %>
+    from: <%= f.text_field :from, value: '広島' %>
+  <% end %>
+  <%= tag.p do %>
+    to: <%= f.text_field :to, value: '北海道' %>
+  <% end %>
+  <%= f.submit 'search' %>
+<% end %>
+
+<% @elements.each do |e| %>
+<%= "#{e} dayo!" %><br>
+<% end %>
