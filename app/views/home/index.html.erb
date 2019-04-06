@@ -3,6 +3,9 @@
     from: <%= f.text_field :from, value: '広島' %>
   <% end %>
   <%= tag.p do %>
+    transfer: <%= f.text_field :transfer, value: '大阪' %>
+  <% end %>
+  <%= tag.p do %>
     to: <%= f.text_field :to, value: '北海道' %>
   <% end %>
   <%= f.submit 'search' %>
