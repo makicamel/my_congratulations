@@ -11,5 +11,12 @@
   <%= f.submit 'search' %>
 <% end %>
 
-<%= "出発時間: #{@elements[:departure_time].inner_text}" %>
-<%= "到着時間: #{@elements[:arrival_time].inner_text}" %>
+<% @blocks.each do |block| %>
+  <%= tag.p do %>
+    <%= "#{block[:departure_station]} → #{block[:transfer_station]} → #{block[:arrive_station]}" %>
+  <% end %>
+  <%= tag.p block[:time] %>
+  <%= tag.p do %>
+    <%= "#{block[:first_route]} / #{block[:second_route]}" %>
+  <% end %>
+<% end %>
