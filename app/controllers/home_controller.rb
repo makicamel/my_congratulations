@@ -16,6 +16,12 @@ class HomeController < ApplicationController
         arrive_station: id.search('.eki_e .nm').inner_text,
         first_route: id.search('.rosen .tm')[0].inner_text,
         second_route: id.search('.rosen .tm')[1]&.inner_text,
+        first_line: id.search('.rosen .rn')[0].inner_text,
+        second_line: id.search('.rosen .rn')[1]&.inner_text,
+        first_home_begin: id.search('.eki_s .ph').inner_text,
+        first_home_end: id.search('.eki .ph div')[1].inner_text,
+        second_home_begin: id.search('.eki .ph div')[2]&.inner_text,
+        second_home_end: id.search('.eki_e .ph').inner_text,
       }
     end
   end

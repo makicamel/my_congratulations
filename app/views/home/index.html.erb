@@ -11,12 +11,18 @@
   <%= f.submit 'search' %>
 <% end %>
 
-<% @blocks.each do |block| %>
-  <%= tag.p do %>
-    <%= "#{block[:departure_station]} → #{block[:transfer_station]} → #{block[:arrive_station]}" %>
+<table>
+  <% @blocks.each do |block| %>
+    <%= tag.tr tag.td "#{block[:departure_station]} → #{block[:transfer_station]} → #{block[:arrive_station]}" %>
+    <%= tag.tr tag.td block[:time] %>
+    <%= tag.tr do %>
+      <%= tag.td do %>
+        <%= "#{block[:first_route]}: #{block[:departure_station]} → #{block[:transfer_station]} #{block[:first_line]}" %>
+        <%= "#{block[:first_home_begin]} → #{block[:first_home_end]}" %>
+        <br>
+        <%= "#{block[:second_route]}: #{block[:transfer_station]} → #{block[:arrive_station]} #{block[:second_line]}" %>
+        <%= "#{block[:second_home_begin]} → #{block[:second_home_end]}" %>
+      <% end %>
+    <% end %>
   <% end %>
-  <%= tag.p block[:time] %>
-  <%= tag.p do %>
-    <%= "#{block[:first_route]} / #{block[:second_route]}" %>
-  <% end %>
-<% end %>
+</table>
