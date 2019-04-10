@@ -8,6 +8,7 @@
   <%= tag.p do %>
     to: <%= f.text_field :to, value: '新宿' %>
   <% end %>
+  <%= select :page, :name, [["", ""], ["", ""]], class: 'datetimepicker' %>
   <%= f.submit 'search' %>
 <% end %>
 
@@ -26,3 +27,5 @@
     <% end %>
   <% end %>
 </table>
+
+<script>$('.datetimepicker').datetimepicker();</script>
