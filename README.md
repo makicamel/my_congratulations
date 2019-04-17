@@ -1,24 +1,10 @@
-# README
+# TAKE A TRAIN
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a system for searching train transition.
+Page remembers your history and displays it.
+System of transit train should be convenient.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+TODO
+- Corresponding for multiple searching results.
+- Remember information(for cookie) of residence, history(stations, times).
+- Useful view.
