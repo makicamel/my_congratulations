@@ -1,11 +1,13 @@
 class HomeController < ApplicationController
 
   def index
+    save_cookie if home_params[:from].present?
+    @query = Struct.new(:from, :transfer, :to).new(*pick_cookie)
+
     # TODO 複数候補の対応
     engine = Rails.application.credentials.search_engine
-    from, transfer, to = home_params[:from], home_params[:transfer], home_params[:to]
     agent = Mechanize.new
-    page = agent.get("#{engine[:url]}?#{engine[:from]}=#{from}&#{engine[:transfer]}=#{transfer}&#{engine[:to]}=#{to}&#{engine[:search]}=検索")
+    page = agent.get("#{engine[:url]}?#{engine[:from]}=#{@query.from}&#{engine[:transfer]}=#{@query.transfer}&#{engine[:to]}=#{@query.to}&#{engine[:search]}=検索")
     @blocks = {}
     ids = page.search('#results').css('.bk_result')
     @blocks = ids.map do |id|
@@ -27,6 +29,16 @@ class HomeController < ApplicationController
   end
 
   private
+  def pick_cookie
+    [cookies[:from], cookies[:transfer], cookies[:to]]
+  end
+
+  def save_cookie
+    cookies[:from] = home_params[:from]&.chomp
+    cookies[:transfer] = home_params[:transfer]&.chomp
+    cookies[:to] = home_params[:to]&.chomp
+  end
+
   def home_params
     params.permit(:from, :transfer, :to)
   end

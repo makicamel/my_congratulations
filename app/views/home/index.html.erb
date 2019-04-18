@@ -1,12 +1,12 @@
 <%= form_with url: home_index_path, method: :get, local: true do |f| %>
   <%= tag.p do %>
-    from: <%= f.text_field :from, value: '渋谷' %>
+    from: <%= f.text_field :from, value: @query.from %>
   <% end %>
   <%= tag.p do %>
-    transfer: <%= f.text_field :transfer, value: '恵比寿（東京）' %>
+    transfer: <%= f.text_field :transfer, value: @query.transfer %>
   <% end %>
   <%= tag.p do %>
-    to: <%= f.text_field :to, value: '新宿' %>
+    to: <%= f.text_field :to, value: @query.to %>
   <% end %>
   <%= select :page, :name, [["", ""], ["", ""]], class: 'datetimepicker' %>
   <%= f.submit 'search' %>
