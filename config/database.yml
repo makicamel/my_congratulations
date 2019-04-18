@@ -9,15 +9,15 @@ default: &default
 development:
   <<: *default
   host: db
-  database: my_congratulations_development
+  database: take_a_train_development
 
 test:
   <<: *default
   host: db
-  database: my_congratulations_test
+  database: take_a_train_test
 
 production:
   <<: *default
-  database: my_congratulations_production
-  username: my_congratulations
-  password: <%= ENV['MY_CONGRATULATIONS_DATABASE_PASSWORD'] %>
+  database: take_a_train_production
+  username: take_a_train
+  password: <%= ENV['TAKE_A_TRAIN_DATABASE_PASSWORD'] %>
