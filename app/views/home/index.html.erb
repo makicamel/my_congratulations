@@ -8,6 +8,7 @@
   <%= tag.p do %>
     to: <%= f.text_field :to, value: @query.to %>
   <% end %>
+  <%= check_box :page, :remember_time, {checked: true} %> remember_time
   <%= select :page, :name, [["", ""], ["", ""]], class: 'datetimepicker' %>
   <%= f.submit 'search' %>
 <% end %>

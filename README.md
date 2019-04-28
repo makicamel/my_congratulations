@@ -6,5 +6,5 @@ System of transit train should be convenient.
 
 TODO
 - Corresponding for multiple searching results.
-- Remember information(for cookie) of residence, history(stations, times).
+- Remember information(for cookie) of residence, history(~stations~, times).
 - Useful view.
