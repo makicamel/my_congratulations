@@ -9,8 +9,9 @@ class HomeController < ApplicationController
     # TODO 複数候補の対応
     engine = Rails.application.credentials.search_engine
     agent = Mechanize.new
-    page = agent.get("#{engine[:url]}?#{engine[:from]}=#{@query.from}&#{engine[:transfer]}=#{@query.transfer}&#{engine[:to]}=#{@query.to}&" +
-      "Dym=#{time_value[:ym]}&Ddd=#{time_value[:dd]}&Dhh=#{time_value[:hh]}&Dmn1=#{time_value[:mn1]}&Dmn2=#{time_value[:mn2]}&#{engine[:search]}=検索")
+    url = "#{engine[:url]}?#{engine[:from]}=#{@query.from}&#{engine[:transfer]}=#{@query.transfer}&#{engine[:to]}=#{@query.to}&" +
+    "Dym=#{time_value[:ym]}&Ddd=#{time_value[:dd]}&Dhh=#{time_value[:hh]}&Dmn1=#{time_value[:mn1]}&Dmn2=#{time_value[:mn2]}&#{engine[:search]}=検索"
+    page = agent.get(url)
     p "#{engine[:url]}?#{engine[:from]}=#{@query.from}&#{engine[:transfer]}=#{@query.transfer}&#{engine[:to]}=#{@query.to}&" +
     "Dym=#{time_value[:ym]}&Ddd=#{time_value[:dd]}&Dhh=#{time_value[:hh]}&Dmn1=#{time_value[:mn1]}&Dmn2=#{time_value[:mn2]}&#{engine[:search]}=検索"
     @blocks = {}
@@ -31,6 +32,13 @@ class HomeController < ApplicationController
         second_home_end: id.search('.eki_e .ph').inner_text,
       }
     end
+# TODO: 経由駅が複数になった時の対応、経由が徒歩だった時の対応
+# TODO: 経由駅が複数候補ある時の対応
+    src = YAML.load_file('lib/yasuri.yaml')
+    root = Yasuri.yaml2tree(src)
+    agent = Mechanize.new
+    root_page = agent.get(url)
+    result = root.inject(agent, root_page)
   end
 
   private

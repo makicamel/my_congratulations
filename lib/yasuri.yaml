@@ -1,0 +1,24 @@
+root:
+  node: struct
+  name: routes
+  path: "//*[@id='results']/div[@class='bk_result']"
+  children:
+    - title: {node: text, path: "./div[@class='header']/h5"}
+    - stations:
+        node: struct
+        path: "./div[@class='route']"
+        children:
+          - departure: {node: text, path: "./*/tr[@class='eki eki_s']/td[@class='nm']/strong"}
+          - transfer: {node: text, path: "./*/tr[@class='eki']/td[@class='nm']/strong"}
+          - arrive: {node: text, path: "./*/tr[@class='eki eki_e']/td[@class='nm']/strong"}
+    - lines:
+        node: struct
+        path: "./div[@class='route']"
+        children:
+          - lines: {node: text, path: "./*/tr[@class='rosen ']/td[@class='rn']/div/a"}
+    - track:
+        node: struct
+        path: "./div[@class='route']"
+        children:
+          - arrive: {node: text, path: "./*/tr[@class='eki eki_e']/td[@class='ph']/div"}
+          - departure: {node: text, path: "./*/tr[@class='eki eki_s']/td[@class='ph']/div"}
