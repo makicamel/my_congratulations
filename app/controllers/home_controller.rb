@@ -34,7 +34,8 @@ class HomeController < ApplicationController
     end
 # TODO: 経由駅が複数になった時の対応、経由が徒歩だった時の対応
 # TODO: 経由駅が複数候補ある時の対応
-    src = YAML.load_file('lib/yasuri.yaml')
+    src = ''
+    File.open("lib/yasuri.yaml"){|f| src = f.read}
     root = Yasuri.yaml2tree(src)
     agent = Mechanize.new
     root_page = agent.get(url)
