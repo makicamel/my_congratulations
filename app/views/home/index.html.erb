@@ -15,15 +15,16 @@
 
 <table>
   <% @blocks.each do |block| %>
-    <%= tag.tr tag.td "#{block[:departure_station]} → #{block[:transfer_station]} → #{block[:arrive_station]}" %>
+    <%= tag.tr tag.td block[:title] %>
+    <%= tag.tr tag.td "#{block[:stations][:departure]} → #{block[:stations][:transfer]} → #{block[:stations][:arrive]}" %>
     <%= tag.tr tag.td block[:time] %>
     <%= tag.tr do %>
       <%= tag.td do %>
-        <%= "#{block[:first_route]}: #{block[:departure_station]} → #{block[:transfer_station]} #{block[:first_line]}" %>
-        <%= "#{block[:first_home_begin]} → #{block[:first_home_end]}" %>
+        <%= "#{block[:first_route]}HH:MM〜HH:MM: #{block[:lines][:lines]}" %><br>
+        <%= "#{block[:stations][:departure]}(#{block[:track][:departure]}) → #{block[:stations][:transfer]}(#{block[:track][:transfer]}N番線着)" %>
         <br>
-        <%= "#{block[:second_route]}: #{block[:transfer_station]} → #{block[:arrive_station]} #{block[:second_line]}" %>
-        <%= "#{block[:second_home_begin]} → #{block[:second_home_end]}" %>
+        <%= "#{block[:second_route]}HH:MM〜HH:MM: #{block[:lines][:lines]}" %><br>
+        <%= "#{block[:stations][:transfer]}(#{block[:track][:transfer]}N番線発) → #{block[:stations][:arrive]}(#{block[:track][:arrive]})" %>
       <% end %>
     <% end %>
   <% end %>
