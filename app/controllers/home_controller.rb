@@ -21,7 +21,7 @@ class HomeController < ApplicationController
     root = Yasuri.yaml2tree(src)
     agent = Mechanize.new
     root_page = agent.get(url)
-    @blocks = root.inject(agent, root_page).map{|hash| hash.each{|k,v| v.symbolize_keys! if v.is_a?(Hash)}.symbolize_keys}
+    @blocks = root.inject(agent, root_page).map{|hash| hash.deep_transform_keys{|key| key.to_sym}}
   end
 
   private
