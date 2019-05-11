@@ -6,19 +6,14 @@ root:
     - title: {node: text, path: "./div[@class='header']/h5"}
     - transfers:
         node: struct
-        path: "./div[@class='route']"
+        path: "./div[@class='route']/*/tr[@class='eki']"
         children:
-          - stationsss: {node: text, path: "./*/tr[@class='eki']/td[@class='nm']/strong"}
+          - station: {node: text, path: "./td[@class='nm']/strong"}
     - stations:
         node: struct
         path: "./div[@class='route']"
         children:
           - departure: {node: text, path: "./*/tr[@class='eki eki_s']/td[@class='nm']/strong"}
-          # - transfers:
-          #     node: struct
-          #     path: "./*/table"
-          #     children:
-          #       - stationsss: {node: text, path: "./*/tr[@class='eki']/td[@class='nm']/strong"}
           - arrive: {node: text, path: "./*/tr[@class='eki eki_e']/td[@class='nm']/strong"}
     - lines:
         node: struct

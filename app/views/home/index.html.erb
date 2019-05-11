@@ -14,17 +14,17 @@
 <% end %>
 
 <table>
-  <% @blocks.each do |block| %>
-    <%= tag.tr tag.td block[:title] %>
-    <%= tag.tr tag.td "#{block[:stations][:departure]} → #{block[:stations][:transfer]} → #{block[:stations][:arrive]}" %>
-    <%= tag.tr tag.td block[:time] %>
+  <% @routes.each do |route| %>
+    <%= tag.tr tag.td route[:title], style: 'background-color: deepskyblue' %>
+    <%= tag.tr tag.td route[:description] %>
+    <%= tag.tr tag.td route[:time] %>
     <%= tag.tr do %>
       <%= tag.td do %>
-        <%= "#{block[:first_route]}HH:MM〜HH:MM: #{block[:lines][:lines]}" %><br>
-        <%= "#{block[:stations][:departure]}(#{block[:track][:departure]}) → #{block[:stations][:transfer]}(#{block[:track][:transfer]}N番線着)" %>
+        <%= "#{route[:first_route]}HH:MM〜HH:MM: #{route[:lines][:lines]}" %><br>
+        <%= "#{route[:stations][:departure]}(#{route[:track][:departure]}) → #{route[:stations][:transfer]}(#{route[:track][:transfer]}N番線着)" %>
         <br>
-        <%= "#{block[:second_route]}HH:MM〜HH:MM: #{block[:lines][:lines]}" %><br>
-        <%= "#{block[:stations][:transfer]}(#{block[:track][:transfer]}N番線発) → #{block[:stations][:arrive]}(#{block[:track][:arrive]})" %>
+        <%= "#{route[:second_route]}HH:MM〜HH:MM: #{route[:lines][:lines]}" %><br>
+        <%= "#{route[:stations][:transfer]}(#{route[:track][:transfer]}N番線発) → #{route[:stations][:arrive]}(#{route[:track][:arrive]})" %>
       <% end %>
     <% end %>
   <% end %>
