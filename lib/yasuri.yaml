@@ -6,20 +6,29 @@ root:
     - title: {node: text, path: "./div[@class='header']/h5"}
     - transfers:
         node: struct
-        path: "./div[@class='route']/*/tr[@class='eki']"
+        path: "./div[@class='route']"
         children:
-          - station: {node: text, path: "./td[@class='nm']/strong"}
+          - station:
+              node: struct
+              path: "./*/tr[@class='eki']"
+              children:
+                - list: {node: text, path: "./td[@class='nm']/strong"}
+          - time:
+              node: struct
+              path: "./*/tr[@class='rosen ']"
+              children:
+                - list: {node: text, path: "./td[@class='tm']/b"}
+          - line:
+              node: struct
+              path: "./*/tr[@class='rosen ']"
+              children:
+                - list: {node: text, path: "./td[@class='rn']/div/a"}
     - stations:
         node: struct
         path: "./div[@class='route']"
         children:
           - departure: {node: text, path: "./*/tr[@class='eki eki_s']/td[@class='nm']/strong"}
           - arrive: {node: text, path: "./*/tr[@class='eki eki_e']/td[@class='nm']/strong"}
-    - lines:
-        node: struct
-        path: "./div[@class='route']"
-        children:
-          - lines: {node: text, path: "./*/tr[@class='rosen ']/td[@class='rn']/div/a"}
     - track:
         node: struct
         path: "./div[@class='route']"

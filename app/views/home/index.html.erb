@@ -16,15 +16,19 @@
 <table>
   <% @routes.each do |route| %>
     <%= tag.tr tag.td route[:title], style: 'background-color: deepskyblue' %>
-    <%= tag.tr tag.td route[:description] %>
+    <%= tag.tr tag.td route[:overview] %>
     <%= tag.tr tag.td route[:time] %>
     <%= tag.tr do %>
       <%= tag.td do %>
-        <%= "#{route[:first_route]}HH:MM〜HH:MM: #{route[:lines][:lines]}" %><br>
-        <%= "#{route[:stations][:departure]}(#{route[:track][:departure]}) → #{route[:stations][:transfer]}(#{route[:track][:transfer]}N番線着)" %>
-        <br>
-        <%= "#{route[:second_route]}HH:MM〜HH:MM: #{route[:lines][:lines]}" %><br>
-        <%= "#{route[:stations][:transfer]}(#{route[:track][:transfer]}N番線発) → #{route[:stations][:arrive]}(#{route[:track][:arrive]})" %>
+        <%= tag.ul do %>
+          <%= route[:transfers][:station].each_cons(2).with_index do |stations, i| %>
+            <%= tag.li do %>
+              <%= "#{stations.first} → #{stations.last}" %>
+              <%= route[:transfers][:time][i] %>
+              <%= route[:transfers][:line][i] %>
+            <% end %>
+          <% end %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

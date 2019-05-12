@@ -15,7 +15,7 @@ class HomeController < ApplicationController
     p "#{engine[:url]}?#{engine[:from]}=#{@query.from}&#{engine[:transfer]}=#{@query.transfer}&#{engine[:to]}=#{@query.to}&" +
     "Dym=#{time_value[:ym]}&Ddd=#{time_value[:dd]}&Dhh=#{time_value[:hh]}&Dmn1=#{time_value[:mn1]}&Dmn2=#{time_value[:mn2]}&#{engine[:search]}=検索"
 # TODO: 経由が徒歩だった時の対応
-# TODO: 経由駅が複数候補ある時の対応(山口(山口), 山口(愛知) 対応、愛知大学前, 愛知川 対応)
+# TODO: 経由駅が複数候補ある時の対応(山口(山口), 山口(愛知) 新宿, 新宿三丁目 対応)
     structure = File.open("lib/yasuri.yaml"){|f| f.read}
     root = Yasuri.yaml2tree(structure)
     agent = Mechanize.new
@@ -23,9 +23,13 @@ class HomeController < ApplicationController
     @routes = root.inject(agent, root_page).map{|hash| hash.deep_transform_keys{|key| key.to_sym}}
     @routes.each do |route|
       arrow = ' → '
-      transfers = route[:transfers].map{|transfer| transfer[:station]}.join(arrow)
-      route[:description] = [route[:stations][:departure], transfers, route[:stations][:arrive]].join(arrow)
+      route[:transfers][:station] = route[:transfers][:station].map{|transfer| transfer[:list]}
+                                      .unshift(route[:stations][:departure]).push(route[:stations][:arrive])
+      route[:overview] = route[:transfers][:station].join(arrow)
+      route[:transfers][:time] = route[:transfers][:time].map{|transfer| transfer[:list]}
+      route[:transfers][:line] = route[:transfers][:line].map{|transfer| transfer[:list]}
     end
+    p @routes
   end
 
   private
